@@ -1,11 +1,2 @@
-# Dependencies
 node_modules/
-
-# Environment variables
 .env
-
-# Logs
-*.log
-
-# VS Code settings
-.vscode/
