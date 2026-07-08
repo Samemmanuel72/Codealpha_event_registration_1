@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS | Event Gateway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #050505;
+            background-image: radial-gradient(circle at 50% 0%, #1a0b2e, #050505 70%);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+        .neon-text { text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); }
+        .btn-neon {
+            background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+            color: black;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+            transition: all 0.3s ease;
+        }
+        .btn-neon:hover {
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.8);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="p-8">
+    <nav class="flex justify-between items-center mb-12 border-b border-white/10 pb-4 max-w-6xl mx-auto">
+        <h1 class="text-4xl font-black tracking-tighter neon-text text-cyan-400">NEXUS<span class="text-white">_EVENTS</span></h1>
+        <div class="space-x-6 font-semibold">
+            <button onclick="showSection('events')" class="text-gray-300 hover:text-cyan-400 transition">Explore</button>
+            <button onclick="showSection('dashboard')" class="text-gray-300 hover:text-purple-400 transition">My Dashboard</button>
+        </div>
+    </nav>
+
+    <!-- EVENTS SECTION -->
+    <section id="events" class="max-w-6xl mx-auto block">
+        <h2 class="text-2xl mb-6 text-cyan-300 font-bold tracking-wide">Available Portals</h2>
+        <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+
+    <!-- DASHBOARD SECTION -->
+    <section id="dashboard" class="max-w-4xl mx-auto hidden">
+        <div class="glass-card p-8 text-center mb-8">
+            <h2 class="text-2xl mb-4 text-purple-400 font-bold">Access Your Uplinks</h2>
+            <input type="email" id="userEmail" placeholder="Enter your email to sync..." class="w-full md:w-1/2 p-3 rounded bg-black/50 border border-white/20 text-white focus:outline-none focus:border-purple-500 mb-4">
+            <button onclick="fetchMyRegistrations()" class="btn-neon px-6 py-3 rounded-full">Sync Data</button>
+        </div>
+        <div id="my-registrations-container" class="space-y-4"></div>
+    </section>
+
+    <!-- MODAL -->
+    <div id="modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex justify-center items-center z-50">
+        <div class="glass-card p-8 w-full max-w-md relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold mb-2 text-cyan-400" id="modal-title"></h3>
+            <p class="text-sm text-gray-400 mb-6" id="modal-desc"></p>
+            
+            <form id="reg-form" onsubmit="submitRegistration(event)">
+                <input type="hidden" id="event-id">
+                <input type="text" id="reg-name" placeholder="Agent Name" required class="w-full p-3 mb-4 rounded bg-black/50 border border-white/20 text-white focus:border-cyan-400 outline-none">
+                <input type="email" id="reg-email" placeholder="Secure Email" required class="w-full p-3 mb-6 rounded bg-black/50 border border-white/20 text-white focus:border-cyan-400 outline-none">
+                <button type="submit" class="w-full btn-neon py-3 rounded-lg">Confirm Uplink</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
